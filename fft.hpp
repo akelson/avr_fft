@@ -2,6 +2,8 @@
 // fft.hpp
 //------------------------------------------------------------------------------
 
+template<typename T>
+T ConvertTwiddleFactor(const int16_t);
 
 template<typename T, size_t N>
 class Fft
@@ -20,9 +22,11 @@ public:
 
         for (size_t k = 0; k < n/2; k++)
         {
-            const T o_exp = twiddle_factors_[k] * X[k+n/2];
-            X[k] = X[k] + o_exp;
-            X[n/2+k] = X[k] - o_exp;
+            const T twiddle = ConvertTwiddleFactor<T>(twiddle_factors_[k]);
+            const T e = X[k];
+            const T o_exp = twiddle * X[k+n/2];
+            X[k] = e + o_exp;
+            X[n/2+k] = e - o_exp;
         } // end for
     } // end ditfft
 
@@ -43,7 +47,7 @@ public:
     } // separate
 
 
-    static const T twiddle_factors_[N];
+    static const int16_t twiddle_factors_[N];
 
 
 }; // Fft

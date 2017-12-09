@@ -1,17 +1,55 @@
-#include <iostream>
+#include <math.h>
 
-#include "fft.hpp"
+#include <iostream>
+#include <complex>
+#include <cstdint>
+#include <vector>
+
+#include "Complex.hpp"
+#include "FixedPoint.hpp"
+
+#include "Fft.hpp"
+
+
+static const size_t N = 64;
+
+using Fp = FixedPoint<int16_t, 8>;
+using FpComplex = Complex<Fp>;
 
 #include "twiddle_factors_64.cpp"
 
+template<>
+FpComplex ConvertTwiddleFactor<FpComplex>(const int16_t value)
+{
+    return FpComplex(Fp::Make(value>>7));
+}
+
+std::vector<FpComplex> MakeSamples(const size_t size, const int freq)
+{
+    std::vector<FpComplex> out;
+    for (size_t i = 0; i < size; i++)
+    {
+        const double angle = 2*M_PI*i*freq/size;
+        const double value = sin(angle);
+        Fp fp(value);
+        FpComplex fpc(fp);
+        out.push_back(fpc);
+    }
+    return out;
+}
+
 int main(void)
 {
-    double foo[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
-
-    Fft<double,64>::ditfft(foo,64);
-
-    for (int i = 0; i < 16; i++)
+    std::vector<FpComplex> x1 = MakeSamples(N,4);
+    for (int i = 0; i < N; i++)
     {
-        std::cout << foo[i] << std::endl;
+        //std::cout << x1[i] << std::endl;
+    }
+
+    Fft<FpComplex,N>::ditfft(x1.data(),N);
+
+    for (int i = 0; i < N; i++)
+    {
+        std::cout << x1[i] << std::endl;
     }
 } // end main

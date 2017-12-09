@@ -1,11 +1,11 @@
-CXXFLAGS = -Wall -std=c++11 -stdlib=libc++ -O0
+CXXFLAGS = -g -Wall -std=c++11 -stdlib=libc++ -O0
 CXX = clang++
 
 REMOVE = rm -f
 
 TARGET = test
 
-$(TARGET): $(TARGET).cpp fft.hpp twiddle_factors_64.cpp
+$(TARGET): $(TARGET).cpp Fft.hpp twiddle_factors_64.cpp
 	$(CXX) $(CXXFLAGS) $(TARGET).cpp -o $(TARGET)
 
 twiddle_factors_64.cpp: autogen_twiddle_factors.py
