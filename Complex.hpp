@@ -1,8 +1,7 @@
 
 template<typename T>
-class Complex
+struct Complex
 {
-public:
     Complex() :
         re_(),
         im_()
@@ -59,7 +58,6 @@ public:
         return os;
     }
     
-private:
     T re_;
     T im_;
 
