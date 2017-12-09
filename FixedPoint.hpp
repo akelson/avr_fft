@@ -10,11 +10,10 @@ public:
         // Empty
     }
 
-    static FixedPoint Make(const T value)
+    FixedPoint(const T value) :
+        value_(value)
     {
-        FixedPoint ret;
-        ret.value_ = value;
-        return ret;
+        // Empty
     }
 
     explicit FixedPoint(const double value) :

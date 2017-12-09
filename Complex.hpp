@@ -9,7 +9,7 @@ struct Complex
         // Empty
     }
 
-    explicit Complex(const T re, const T im = T()) :
+    Complex(const T re, const T im = T()) :
         re_(re), im_(im)
     {
         // Empty
