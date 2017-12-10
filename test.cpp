@@ -37,7 +37,11 @@ void Disp(const std::vector<FpComplex>& x, int scale, int dc)
     for (int i = 0; i < x.size()/2; i++)
     {
         //std::cout << i << ": " << x1[i].re_ << std::endl;
-        int dots = dc + scale * x[i].re_.toDouble();
+        double re = x[i].re_.toDouble();
+        double im = x[i].im_.toDouble();
+        double magnitude = 
+            sqrt(re*re + im*im);
+        int dots = dc + scale * magnitude;
         std::cout << std::setw(2) << i << " ";
         for (int j = 0; j < dots; j++)
         {
@@ -51,8 +55,8 @@ int main(void)
 {
     std::vector<FpComplex> x1(N);
     //AddSignal(x1, 8);
-    AddSignal(x1, .5, 8, 0);
-    AddSignal(x1, .5, 16, 0);
+    AddSignal(x1, 1, 8, 0);
+    AddSignal(x1, 1, 16, 0);
     AddSignal(x1, .5, 30, 0);
     //AddSignal(x1, 5, 3);
 
@@ -64,15 +68,16 @@ int main(void)
         //std::cout << x1[i] << std::endl;
     }
 
-    Fft<FpComplex,N>::PrintTwiddleFactors();
+    //Fft<FpComplex,N>::PrintTwiddleFactors();
 
     Fft<FpComplex,N>::ditfft(x1.data(),N);
 
-    Disp(x1,1,10);
+    Disp(x1,1,0);
 
     for (int i = 0; i < x1.size()/2; i++)
     {
-        std::cout << x1[i] << std::endl;
+        //std::cout << x1[i] << std::endl;
     }
 
 } // end main
+

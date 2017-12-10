@@ -4,25 +4,21 @@ import math
 import cmath
 import sys
 
-def generate_twiddle_factors(N):
+def generate_twiddle_factors(N, type_name):
     with open("twiddle_factors_{}.cpp".format(N), "w") as f:
         f.write("template<>\n")
-        f.write("const FpComplex Fft<FpComplex,{}>::twiddle_factors_[{}] = \n"
-                .format(N,N))
+        f.write("const {} Fft<{},{}>::twiddle_factors_[{}] = \n"
+                .format(type_name, type_name, N, N))
         f.write("{\n")
         for k in range(N):
-            w = cmath.exp(complex(0,-2*math.pi*k/N))
             if (k):
                 f.write(",")
-            if (k and not k % 4):
+            if (k and not k % 2):
                 f.write("\n")
-
-            shift = (16 - 10);
-            w_re = 0xFFFF & int(w.real * (0xFFFF >> shift));
-            w_im = 0xFFFF & int(w.imag * (0xFFFF >> shift));
-            f.write("{{0x{:04X},0x{:04X}}}".format(w_re, w_im))
+            w = cmath.exp(complex(0,-2*math.pi*k/N))
+            f.write("{{{: 1.10f},{: 1.10f}}}".format(w.real, w.imag))
 
         f.write("\n};\n")
 
 if __name__ == "__main__":
-    generate_twiddle_factors(int(sys.argv[1]));
+    generate_twiddle_factors(int(sys.argv[1]), sys.argv[2]);

@@ -48,14 +48,5 @@ public:
 
     static const T twiddle_factors_[N];
 
-    static void PrintTwiddleFactors()
-    {
-        for (size_t i = 0; i < N; i++)
-        {
-            std::cout << twiddle_factors_[i] << std::endl;
-        }
-    }
-
-
 }; // Fft
 
