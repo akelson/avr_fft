@@ -54,11 +54,12 @@ Complex<T> operator/ (
     return ret;
 }
 
-// TODO:
-//template<typename T>
-//std::ostream& operator<< (std::ostream& os, const Complex<T>& obj)
-//{
-//    os << "(" << obj.re_ << "," << obj.im_ << ")";
-//    return os;
-//}
+#ifndef AVR
+template<typename T>
+std::ostream& operator<< (std::ostream& os, const Complex<T>& obj)
+{
+    os << "(" << obj.re_ << "," << obj.im_ << ")";
+    return os;
+}
+#endif
 

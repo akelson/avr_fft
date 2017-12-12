@@ -12,11 +12,11 @@
 #include "Fft.hpp"
 
 
-static const size_t N = 64;
 
-using Fp = FixedPoint<int16_t, 10>;
+using Fp = FixedPoint<int16_t, 8>;
 using FpComplex = Complex<Fp>;
 
+static const size_t N = 64;
 #include "twiddle_factors_64.cpp"
 
 void AddSignal(std::vector<FpComplex>& x, 
@@ -51,13 +51,50 @@ void Disp(const std::vector<FpComplex>& x, int scale, int dc)
     }
 }
 
+void Assert(const bool pass, std::string msg)
+{
+    if (pass)
+    {
+        std::cout << "PASS - ";
+    }
+    else
+    {
+        std::cout << "FAIL - ";
+    }
+    std::cout << msg << std::endl;
+}
+
+bool TestFixedPoint()
+{
+    // Constructor
+    FixedPoint<int16_t,0> a0(1.0);
+    Assert(0x0001 == a0.value_,"Constructor 1");
+
+    FixedPoint<int16_t,8> a8(1.0);
+    Assert(0x0100 == a8.value_,"Constructor 2");
+
+    FixedPoint<int16_t,14> a16(1.0);
+    Assert(0x4000 == a16.value_,"Constructor 3");
+
+    // Assignment
+    FixedPoint<int16_t,1> b;
+    b = a8;
+    Assert(0x0002 == b.value_,"Assign 1");
+
+    return true;
+}
+
 int main(void)
 {
+
+    TestFixedPoint();
+
     std::vector<FpComplex> x1(N);
+    x1[0] = FpComplex(1.0);
     //AddSignal(x1, 8);
-    AddSignal(x1, 1, 8, 0);
-    AddSignal(x1, 1, 16, 0);
-    AddSignal(x1, .5, 30, 0);
+    //AddSignal(x1, 1, 8, 0);
+    //AddSignal(x1, 1, 16, 0);
+    //AddSignal(x1, .5, 30, 0);
     //AddSignal(x1, 5, 3);
 
     //Disp(x1,5,10);
@@ -65,18 +102,20 @@ int main(void)
 
     for (int i = 0; i < N; i++)
     {
-        //std::cout << x1[i] << std::endl;
+        std::cout << x1[i] << std::endl;
     }
+    std::cout << std::endl;
 
     //Fft<FpComplex,N>::PrintTwiddleFactors();
 
     Fft<FpComplex,N>::ditfft(x1.data(),N);
+    //Fft<FpComplex,N>::ditfft(x1.data(),N);
 
-    Disp(x1,1,0);
+    //Disp(x1,1,0);
 
     for (int i = 0; i < x1.size()/2; i++)
     {
-        //std::cout << x1[i] << std::endl;
+        std::cout << x1[i] << std::endl;
     }
 
 } // end main

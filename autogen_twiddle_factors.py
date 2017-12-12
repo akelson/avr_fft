@@ -13,9 +13,9 @@ def generate_twiddle_factors(N, type_name):
         for k in range(N):
             if (k):
                 f.write(",")
-            if (k and not k % 2):
+            if (k and not k % 1):
                 f.write("\n")
-            w = cmath.exp(complex(0,-2*math.pi*k/N))
+            w = cmath.exp(complex(0,-2.0*math.pi*k/N))
             f.write("{{{: 1.10f},{: 1.10f}}}".format(w.real, w.imag))
 
         f.write("\n};\n")

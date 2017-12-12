@@ -16,15 +16,20 @@ public:
         if ( n >= 2 )
         {
             separate(X,n);
-            ditfft(X,n/2);
+            ditfft(X,    n/2);
             ditfft(X+n/2,n/2);
+        }
+        else
+        {
+            return;
         }
 
         for (size_t k = 0; k < n/2; k++)
         {
+            const T twiddle_factor = twiddle_factors_[k * (N/n)];
             const T e = X[k];
-            const T o_exp = twiddle_factors_[k] * X[k+n/2];
-            X[k] = e + o_exp;
+            const T o_exp = X[k+n/2] * twiddle_factor;
+            X[k] =     e + o_exp;
             X[n/2+k] = e - o_exp;
         } // end for
     } // end ditfft

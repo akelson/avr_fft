@@ -5,21 +5,26 @@ F_CPU = 1000000UL
 AVRFLAGS = -mmcu=$(MCU) -Os -DF_CPU=$(F_CPU) -DAVR
 CFLAGS = $(AVRFLAGS) -g -Wall
 #CXXFLAGS = $(CFLAGS) -g -Wall -std=c++11 -stdlib=libc++ -O0
-CXXFLAGS = $(AVRFLAGS) -g -Wall -std=c++11
-#CXX = clang++
-CXX = avr-c++
+CXXFLAGS = -g -Wall -std=c++11
+CXX = clang++
+AVRCXX = avr-c++
 
 REMOVE = rm -f
 
-#TARGET = test
 TARGET = avrtest
+
+TEST_TARGET = test
 
 $(TARGET).hex: $(TARGET)
 	avr-objcopy -j .text -j .data -O ihex $(TARGET) $(TARGET).hex
 
 $(TARGET): $(TARGET).cpp Fft.hpp Complex.hpp FixedPoint.hpp \
 	twiddle_factors_64.cpp test_signal_64.cpp
-	$(CXX) $(CXXFLAGS) $(TARGET).cpp -o $(TARGET)
+	$(AVRCXX) $(AVRFLAGS) $(CXXFLAGS) $(TARGET).cpp -o $(TARGET)
+
+$(TEST_TARGET): $(TEST_TARGET).cpp Fft.hpp Complex.hpp FixedPoint.hpp \
+	twiddle_factors_64.cpp test_signal_64.cpp
+	$(CXX) $(CXXFLAGS) $(TEST_TARGET).cpp -o $(TEST_TARGET)
 
 twiddle_factors_64.cpp: autogen_twiddle_factors.py
 	./autogen_twiddle_factors.py 64 FpComplex
