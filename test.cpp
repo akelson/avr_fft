@@ -90,11 +90,10 @@ int main(void)
     TestFixedPoint();
 
     std::vector<FpComplex> x1(N);
-    x1[0] = FpComplex(1.0);
     //AddSignal(x1, 8);
     //AddSignal(x1, 1, 8, 0);
-    //AddSignal(x1, 1, 16, 0);
-    //AddSignal(x1, .5, 30, 0);
+    AddSignal(x1, 1, 16, 0);
+    AddSignal(x1, .5, 30, 0);
     //AddSignal(x1, 5, 3);
 
     //Disp(x1,5,10);
@@ -102,7 +101,7 @@ int main(void)
 
     for (int i = 0; i < N; i++)
     {
-        std::cout << x1[i] << std::endl;
+        //std::cout << x1[i] << std::endl;
     }
     std::cout << std::endl;
 
@@ -111,11 +110,11 @@ int main(void)
     Fft<FpComplex,N>::ditfft(x1.data(),N);
     //Fft<FpComplex,N>::ditfft(x1.data(),N);
 
-    //Disp(x1,1,0);
+    Disp(x1,1,0);
 
     for (int i = 0; i < x1.size()/2; i++)
     {
-        std::cout << x1[i] << std::endl;
+        //std::cout << x1[i] << std::endl;
     }
 
 } // end main
