@@ -16,8 +16,9 @@
 using Fp = FixedPoint<int16_t, 8>;
 using FpComplex = Complex<Fp>;
 
-static const size_t N = 64;
-#include "twiddle_factors_64.cpp"
+static const size_t N = 8;
+#include "autogen/twiddle_factors_8.cpp"
+#include "autogen/test_signal_8.cpp"
 
 void AddSignal(std::vector<FpComplex>& x, 
     const double amplitude, const int freq, const int phase)
@@ -91,10 +92,17 @@ int main(void)
 
     std::vector<FpComplex> x1(N);
     //AddSignal(x1, 8);
-    //AddSignal(x1, 1, 8, 0);
-    AddSignal(x1, 1, 16, 0);
-    AddSignal(x1, .5, 30, 0);
+    //AddSignal(x1, 1, 7, 0);
+    //AddSignal(x1, 1, 16, 0);
+    //AddSignal(x1, 1, 30, 0);
+    //AddSignal(x1, 1, 5, 0);
     //AddSignal(x1, 5, 3);
+    
+    // Load the test signal
+    for ( unsigned int i = 0; i < N; i++)
+    {
+        x1[i] = test_signal_2Hz[i];
+    }
 
     //Disp(x1,5,10);
     std::cout << std::endl;
@@ -108,14 +116,16 @@ int main(void)
     //Fft<FpComplex,N>::PrintTwiddleFactors();
 
     Fft<FpComplex,N>::ditfft(x1.data(),N);
-    //Fft<FpComplex,N>::ditfft(x1.data(),N);
 
     Disp(x1,1,0);
 
     for (int i = 0; i < x1.size()/2; i++)
     {
-        //std::cout << x1[i] << std::endl;
+        std::cout << x1[i] << std::endl;
     }
+
+    std:: cout << "Max Freq: " << 
+		Fft<FpComplex,N>::maxFreq(x1.data()) << std::endl;
 
 } // end main
 

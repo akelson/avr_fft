@@ -8,20 +8,14 @@
 #include "Fft.hpp"
 
 
-static const size_t N = 64;
+static const size_t N = 8;
 
-using Fp = FixedPoint<int16_t, 10>;
+using Fp = FixedPoint<int16_t, 8>;
 using FpComplex = Complex<Fp>;
 
-#include "twiddle_factors_64.cpp"
-#include "test_signal_64.cpp"
+#include "autogen/twiddle_factors_8.cpp"
+#include "autogen/test_signal_8.cpp"
 
-int magnitude(FpComplex val)
-{
-    auto re = val.re_;
-    auto im = val.im_;
-    return (re*re + im*im).value_;
-}
 
 void Flash()
 {
@@ -40,9 +34,10 @@ int main(void)
 
     const FpComplex* test_signals[] =
     {
-        test_signal_5Hz,
-        test_signal_8Hz,
-        test_signal_16Hz,
+        test_signal_1Hz,
+        test_signal_2Hz,
+        test_signal_1Hz,
+        //test_signal_7Hz,
     };
 
     FpComplex x1[N] = {};
@@ -61,21 +56,8 @@ int main(void)
 
         Fft<FpComplex,N>::ditfft(x1,N);
 
-        // Find largest component.
-        int largest_value = 0;
-        char largest_index = 0;
-        for ( unsigned int i = 0; i < N; i++)
-        {
-            int mag = magnitude(x1[i]);
-            if ( mag > largest_value )
-            {
-                largest_value = mag;
-                largest_index = i;
-            }
-        }
-
         // Output the index.
-		PORTD = ~largest_index;
+		PORTD = ~(Fft<FpComplex,N>::maxFreq(x1));
 		_delay_ms(1000);
 
         test_signal_i++;

@@ -14,7 +14,7 @@ def generate_signal(N, type_name, freq):
                 f.write(",")
             if (k and not k % 2):
                 f.write("\n")
-            sig = math.sin(freq*math.pi*k/N)
+            sig = math.cos(freq*2*math.pi*k/N)
             f.write("{{{: 1.10f},{: 1.10f}}}".format(sig,0))
 
         f.write("\n};\n")
@@ -22,6 +22,6 @@ def generate_signal(N, type_name, freq):
 if __name__ == "__main__":
     with open("test_signal_{}.cpp".format(sys.argv[1]), "w") as f:
         pass
-    generate_signal(int(sys.argv[1]), sys.argv[2],int(8));
-    generate_signal(int(sys.argv[1]), sys.argv[2],int(5));
-    generate_signal(int(sys.argv[1]), sys.argv[2],int(16));
+    generate_signal(int(sys.argv[1]), sys.argv[2],int(1));
+    generate_signal(int(sys.argv[1]), sys.argv[2],int(2));
+    generate_signal(int(sys.argv[1]), sys.argv[2],int(7));
