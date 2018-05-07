@@ -8,13 +8,13 @@
 #include "Fft.hpp"
 
 
-static const size_t N = 8;
+static const size_t N = 64;
 
 using Fp = FixedPoint<int16_t, 8>;
 using FpComplex = Complex<Fp>;
 
-#include "autogen/twiddle_factors_8.cpp"
-#include "autogen/test_signal_8.cpp"
+#include "autogen/twiddle_factors_64.cpp"
+#include "autogen/test_signal_64.cpp"
 
 
 void Flash()
@@ -31,14 +31,6 @@ int main(void)
 	DDRD = 0xFF;
 
     Flash();
-
-    const FpComplex* test_signals[] =
-    {
-        test_signal_1Hz,
-        test_signal_2Hz,
-        test_signal_1Hz,
-        //test_signal_7Hz,
-    };
 
     FpComplex x1[N] = {};
 

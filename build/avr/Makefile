@@ -6,7 +6,7 @@ TARGET = avrtest
 AUTOGEN_TWIDDLE = ../../autogen_twiddle_factors.py
 AUTOGEN_TEST_SIGNAL = ../../autogen_test_signal.py
 
-RADIX = 8
+RADIX = 64
 CMPLX_TYPE = FpComplex
 TWIDDLE_SRC = $(AUTOGEN_SRC_DIR)/twiddle_factors_$(RADIX).cpp
 TEST_SIGNAL_SRC = $(AUTOGEN_SRC_DIR)/test_signal_$(RADIX).cpp
@@ -31,9 +31,8 @@ CC = $(CXX)
 $(TARGET).hex: $(TARGET)
 	avr-objcopy -j .text -j .data -O ihex $(TARGET) $(TARGET).hex
 
-$(TARGET): $(TARGET).o
-
-$(TARGET).o: $(SRCS)
+$(TARGET): $(SRCS) 
+	$(CXX) $(CXXFLAGS) $(SRC_DIR)/$(TARGET).cpp -o $(TARGET)
 
 $(TWIDDLE_SRC): $(AUTOGEN_TWIDDLE)
 	cd $(AUTOGEN_SRC_DIR); \

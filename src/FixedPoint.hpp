@@ -74,8 +74,10 @@ template<typename T, int F1, int F2>
 auto operator*( const FixedPoint<T,F1>& a, const FixedPoint<T,F2>& b)
     -> typename result_types<T,F1,F2>::mul 
 {
-    typename result_types<T,F1,F2>::mul ret;
-    ret.value_ = a.value_ * b.value_;
+    using ret_type = typename result_types<T,F1,F2>::mul;
+    using operand_type = typename result_types<T,F1,F2>::mul::value_type;
+    ret_type ret;
+    ret.value_ = static_cast<operand_type>(a.value_) * static_cast<operand_type>(b.value_);
     return ret;
 }
 
