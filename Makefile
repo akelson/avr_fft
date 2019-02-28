@@ -6,7 +6,7 @@ AVRFLAGS = -mmcu=$(MCU) -Os -DF_CPU=$(F_CPU) -DAVR
 CFLAGS = $(AVRFLAGS) -g -Wall
 #CXXFLAGS = $(CFLAGS) -g -Wall -std=c++11 -stdlib=libc++ -O0
 CXXFLAGS = -g -Wall -std=c++11
-CXX = clang++
+CXX = g++
 AVRCXX = avr-c++
 
 REMOVE = rm -f
