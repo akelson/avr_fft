@@ -6,7 +6,7 @@ TARGET = test
 AUTOGEN_TWIDDLE = ../../autogen_twiddle_factors.py
 AUTOGEN_TEST_SIGNAL = ../../autogen_test_signal.py
 
-RADIX = 8
+RADIX = 64
 CMPLX_TYPE = FpComplex
 TWIDDLE_SRC = $(AUTOGEN_SRC_DIR)/twiddle_factors_$(RADIX).cpp
 TEST_SIGNAL_SRC = $(AUTOGEN_SRC_DIR)/test_signal_$(RADIX).cpp

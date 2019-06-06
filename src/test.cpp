@@ -12,13 +12,14 @@
 #include "Fft.hpp"
 
 
-static const size_t N = 8;
+constexpr size_t N = 64;
+constexpr int F = 8;
 
-using Fp = FixedPoint<int16_t, 8>;
+using Fp = FixedPoint<int16_t, F>;
 using FpComplex = Complex<Fp>;
 
-#include "autogen/twiddle_factors_8.cpp"
-#include "autogen/test_signal_8.cpp"
+#include "autogen/twiddle_factors_64.cpp"
+#include "autogen/test_signal_64.cpp"
 
 void AddSignal(std::vector<FpComplex>& x, 
     const double amplitude, const int freq, const int phase)
@@ -49,6 +50,14 @@ void Disp(const std::vector<FpComplex>& x, int scale, int dc)
             std::cout << ".";
         }
         std::cout << std::endl;
+    }
+}
+
+void Print(const std::vector<FpComplex>& x)
+{
+    for (auto& item : x)
+    {
+        std::cout << item << std::endl;
     }
 }
 
@@ -92,7 +101,7 @@ int main(void)
 
     std::vector<FpComplex> x1(N);
 
-    for( int test_signal_i = 0; test_signal_i < 3; test_signal_i++)
+    for( int test_signal_i = 0; test_signal_i < 1; test_signal_i++)
     {
 
         // Load the test signal
@@ -103,7 +112,8 @@ int main(void)
 
         Fft<FpComplex,N>::ditfft(x1.data(),N);
 
-        Disp(x1, 1, 1);
+        //Disp(x1, 1, 1);
+        Print(x1);
 
         std:: cout << "Max Freq: " << 
             Fft<FpComplex,N>::maxFreq(x1.data()) << std::endl;

@@ -9,7 +9,7 @@ T ConvertTwiddleFactor(const int16_t);
 template<typename T>
 int32_t magnitude(Complex<T> value)
 {
-    //return (value.re_*value.re_ + value.im_*value.im_).value_;
+    return (value.re_*value.re_ + value.im_*value.im_).value_;
     int32_t mag = value.re_.value_;
     if ( mag > 0 )
     {
