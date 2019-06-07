@@ -1,3 +1,9 @@
+#ifndef COMPLEX_H
+#define COMPLEX_H
+
+#ifndef AVR
+#include <iostream>
+#endif
 
 template<typename T>
 struct Complex
@@ -63,3 +69,4 @@ std::ostream& operator<< (std::ostream& os, const Complex<T>& obj)
 }
 #endif
 
+#endif  // COMPLEX_H

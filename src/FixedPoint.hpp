@@ -1,3 +1,5 @@
+#ifndef FIXEDPOINT_H
+#define FIXEDPOINT_H
 
 // Fixed point number with storage type T and fractional bits F
 template<typename T, int F>
@@ -74,17 +76,11 @@ template<typename T, int F1, int F2>
 auto operator*( const FixedPoint<T,F1>& a, const FixedPoint<T,F2>& b)
   -> typename result_types<T,F1,F2>::mul 
 {
-<<<<<<< HEAD:src/FixedPoint.hpp
     using ret_type = typename result_types<T,F1,F2>::mul;
     using operand_type = typename result_types<T,F1,F2>::mul::value_type;
     ret_type ret;
     ret.value_ = static_cast<operand_type>(a.value_) * static_cast<operand_type>(b.value_);
     return ret;
-=======
-  typename result_types<T,F1,F2>::mul ret;
-  ret.value_ = a.value_ * b.value_;
-  return ret;
->>>>>>> de51e6e633280e351d14ce4841af6370f4493a79:FixedPoint.hpp
 }
 
 template<typename T, int F>
@@ -105,3 +101,4 @@ std::ostream& operator<< (std::ostream& os, const FixedPoint<T,F>& obj)
 }
 #endif
 
+#endif  // FIXEDPOINT_H

@@ -7,19 +7,14 @@
 #include <vector>
 
 #include "Complex.hpp"
-#include "FixedPoint.hpp"
 
 #include "Fft.hpp"
+#include "CommonTypes.hpp"
 
+template<>
+const FpComplex Fft<FpComplex,64>::twiddle_factors_[64];
 
-constexpr size_t N = 64;
-constexpr int F = 8;
-
-using Fp = FixedPoint<int16_t, F>;
-using FpComplex = Complex<Fp>;
-
-#include "autogen/twiddle_factors_64.cpp"
-#include "autogen/test_signal_64.cpp"
+const FpComplex** test_signals;
 
 void AddSignal(std::vector<FpComplex>& x, 
     const double amplitude, const int freq, const int phase)
@@ -55,10 +50,10 @@ void Disp(const std::vector<FpComplex>& x, int scale, int dc)
 
 void Print(const std::vector<FpComplex>& x)
 {
-    for (auto& item : x)
-    {
-        std::cout << item << std::endl;
-    }
+  for (auto& item : x)
+  {
+    std::cout << item << std::endl;
+  }
 }
 
 void Assert(const bool pass, std::string msg)
@@ -99,56 +94,53 @@ int main(void)
 
   TestFixedPoint();
 
-<<<<<<< HEAD:src/test.cpp
-    std::vector<FpComplex> x1(N);
-
-    for( int test_signal_i = 0; test_signal_i < 1; test_signal_i++)
-    {
-
-        // Load the test signal
-        for ( unsigned int i = 0; i < N; i++)
-        {
-            x1[i] = test_signals[test_signal_i][i];
-        }
-
-        Fft<FpComplex,N>::ditfft(x1.data(),N);
-
-        //Disp(x1, 1, 1);
-        Print(x1);
-
-        std:: cout << "Max Freq: " << 
-            Fft<FpComplex,N>::maxFreq(x1.data()) << std::endl;
-    }
-=======
   std::vector<FpComplex> x1(N);
-  x1[0] = FpComplex(1.0);
-  //AddSignal(x1, 8);
-  //AddSignal(x1, 1, 8, 0);
-  //AddSignal(x1, 1, 16, 0);
-  //AddSignal(x1, .5, 30, 0);
-  //AddSignal(x1, 5, 3);
 
-  //Disp(x1,5,10);
-  std::cout << std::endl;
-
-  for (int i = 0; i < N; i++)
+  for( int test_signal_i = 0; test_signal_i < 1; test_signal_i++)
   {
-    std::cout << x1[i] << std::endl;
+
+    // Load the test signal
+    for ( unsigned int i = 0; i < N; i++)
+    {
+      x1[i] = test_signals[test_signal_i][i];
+    }
+
+    Fft<FpComplex,N>::ditfft(x1.data(),N);
+
+    //Disp(x1, 1, 1);
+    Print(x1);
+
+    std:: cout << "Max Freq: " << 
+      Fft<FpComplex,N>::maxFreq(x1.data()) << std::endl;
   }
-  std::cout << std::endl;
 
-  //Fft<FpComplex,N>::PrintTwiddleFactors();
+  //x1[0] = FpComplex(1.0);
+  ////AddSignal(x1, 8);
+  ////AddSignal(x1, 1, 8, 0);
+  ////AddSignal(x1, 1, 16, 0);
+  ////AddSignal(x1, .5, 30, 0);
+  ////AddSignal(x1, 5, 3);
 
-  Fft<FpComplex,N>::ditfft(x1.data(),N);
+  ////Disp(x1,5,10);
+  //std::cout << std::endl;
+
+  //for (int i = 0; i < N; i++)
+  //{
+  //  std::cout << x1[i] << std::endl;
+  //}
+  //std::cout << std::endl;
+
+  ////Fft<FpComplex,N>::PrintTwiddleFactors();
+
   //Fft<FpComplex,N>::ditfft(x1.data(),N);
+  ////Fft<FpComplex,N>::ditfft(x1.data(),N);
 
-  //Disp(x1,1,0);
+  ////Disp(x1,1,0);
 
-  for (int i = 0; i < x1.size()/2; i++)
-  {
-    std::cout << x1[i] << std::endl;
-  }
->>>>>>> de51e6e633280e351d14ce4841af6370f4493a79:test.cpp
+  //for (int i = 0; i < x1.size()/2; i++)
+  //{
+  //  std::cout << x1[i] << std::endl;
+  //}
 
 } // end main
 

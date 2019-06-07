@@ -6,6 +6,8 @@ import sys
 
 def generate_twiddle_factors(N, type_name):
     with open("twiddle_factors_{}.cpp".format(N), "w") as f:
+        f.write('#include "Fft.hpp"\n')
+        f.write('#include "CommonTypes.hpp"\n')
         f.write("template<>\n")
         f.write("const {} Fft<{},{}>::twiddle_factors_[{}] = \n"
                 .format(type_name, type_name, N, N))
