@@ -11,10 +11,10 @@
 #include "Fft.hpp"
 #include "CommonTypes.hpp"
 
+#include "test_signals.hpp"
+
 template<>
 const FpComplex Fft<FpComplex,64>::twiddle_factors_[64];
-
-const FpComplex** test_signals;
 
 void AddSignal(std::vector<FpComplex>& x, 
     const double amplitude, const int freq, const int phase)
@@ -96,7 +96,7 @@ int main(void)
 
   std::vector<FpComplex> x1(N);
 
-  for( int test_signal_i = 0; test_signal_i < 1; test_signal_i++)
+  for( int test_signal_i = 0; test_signal_i < 3; test_signal_i++)
   {
 
     // Load the test signal

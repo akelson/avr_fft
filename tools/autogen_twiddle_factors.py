@@ -5,7 +5,7 @@ import cmath
 import sys
 
 def generate_twiddle_factors(N, type_name):
-    with open("twiddle_factors_{}.cpp".format(N), "w") as f:
+    with open("twiddle_factors.cpp", "w") as f:
         f.write('#include "Fft.hpp"\n')
         f.write('#include "CommonTypes.hpp"\n')
         f.write("template<>\n")

@@ -2,6 +2,7 @@
 #define COMMONTYPES_H
 
 #include "FixedPoint.hpp"
+#include "Complex.hpp"
 
 constexpr size_t N = 64;
 constexpr int F = 8;

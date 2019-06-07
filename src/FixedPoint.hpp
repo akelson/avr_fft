@@ -1,6 +1,9 @@
 #ifndef FIXEDPOINT_H
 #define FIXEDPOINT_H
 
+#include <iostream>
+#include <cstdint>
+
 // Fixed point number with storage type T and fractional bits F
 template<typename T, int F>
 struct FixedPoint
