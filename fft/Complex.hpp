@@ -1,7 +1,7 @@
 #ifndef COMPLEX_H
 #define COMPLEX_H
 
-#ifndef AVR
+#ifndef __AVR__
 #include <iostream>
 #endif
 
@@ -60,7 +60,7 @@ Complex<T> operator/ (
   return ret;
 }
 
-#ifndef AVR
+#ifndef __AVR__
 template<typename T>
 std::ostream& operator<< (std::ostream& os, const Complex<T>& obj)
 {

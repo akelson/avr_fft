@@ -1,6 +1,13 @@
 #ifndef COMMONTYPES_H
 #define COMMONTYPES_H
 
+#ifdef __AVR__
+#include <stdlib.h>
+#include <avr/io.h>
+#else
+#include <cstdint>
+#endif
+
 #include "FixedPoint.hpp"
 #include "Complex.hpp"
 

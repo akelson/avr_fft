@@ -108,7 +108,7 @@ int main(void)
     Fft<FpComplex,N>::ditfft(x1.data(),N);
 
     //Disp(x1, 1, 1);
-    Print(x1);
+    //Print(x1);
 
     std:: cout << "Max Freq: " << 
       Fft<FpComplex,N>::maxFreq(x1.data()) << std::endl;

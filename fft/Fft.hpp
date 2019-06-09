@@ -2,7 +2,12 @@
 // fft.hpp
 //------------------------------------------------------------------------------
 
+#ifdef __AVR__
+#include <stdlib.h>
+#include <avr/io.h>
+#else
 #include <cstdint>
+#endif
 
 #include "Complex.hpp"
 

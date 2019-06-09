@@ -1,8 +1,10 @@
 #ifndef FIXEDPOINT_H
 #define FIXEDPOINT_H
 
+#ifndef __AVR__
 #include <iostream>
 #include <cstdint>
+#endif
 
 // Fixed point number with storage type T and fractional bits F
 template<typename T, int F>
@@ -95,7 +97,7 @@ FixedPoint<T,F> operator/ (
   return ret;
 }
 
-#ifndef AVR
+#ifndef __AVR__
 template<typename T, int F>
 std::ostream& operator<< (std::ostream& os, const FixedPoint<T,F>& obj)
 {
