@@ -1,6 +1,13 @@
-To build:
-
+To build unit_test:
+cd unit_test
 mkdir build
 cd build
-cmake ../src
+cmake ../
+make
+
+To build avr:
+cd avr
+mkdir build
+cd build
+cmake ../ -DCMAKE_TOOLCHAIN_FILE=../../avr-toolchain.cmake
 make

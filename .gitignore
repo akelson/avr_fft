@@ -1,6 +1,8 @@
 *.swp
 test.dSYM
 
+/build/
+
 # CMake
 CMakeCache.txt
 CMakeFiles
