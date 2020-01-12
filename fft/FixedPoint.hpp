@@ -40,21 +40,24 @@ struct FixedPoint
   T value_;
 };
 
+template<typename T>
+struct wider;
+
+template<>
+struct wider<uint8_t> { using type = uint16_t; };
+
+template<>
+struct wider<uint16_t> { using type = uint32_t; };
+
+template<>
+struct wider<uint32_t> { using type = uint64_t; };
+
 template<typename T, int F1, int F2>
 struct result_types
 {
   using add = void;
   using sub = void;
-  using mul = void;
-  using div = void;
-};
-
-template<int F1, int F2>
-struct result_types<int16_t, F1, F2>
-{
-  using add = void;
-  using sub = void;
-  using mul = FixedPoint<int32_t, F1 + F2>;
+  using mul = FixedPoint<typename wider<T>::type, F1 + F2>;
   using div = void;
 };
 
@@ -96,6 +99,14 @@ FixedPoint<T,F> operator/ (
   ret.value_ = (a.value_ / b.value_) << F;
   return ret;
 }
+
+template<typename T, int F>
+bool operator== (
+  const FixedPoint<T,F>& a, const FixedPoint<T,F>& b)
+{
+  return a.value_ == b.value_;
+}
+
 
 #ifndef __AVR__
 template<typename T, int F>
